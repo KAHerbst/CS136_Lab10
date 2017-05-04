@@ -6,6 +6,7 @@ public class GameTree{
     int level;
     HexBoard root;
     Vector<GameTree> children;
+
     /**
      * Creates a "full" GameTree representing every possible state of our hex-a-pawn game
      **/
@@ -27,6 +28,7 @@ public class GameTree{
 	this.children = new Vector<GameTree>();
     }
 
+    // not sure if what we'll use this for
     public boolean validMove(){
 	return true;
     }
@@ -41,10 +43,6 @@ public class GameTree{
 
     public void populate(){
 	populateHelper(this,'*');
-    }
-
-    public void add(){
-
     }
     
     public void populateHelper(GameTree tree, char player){
