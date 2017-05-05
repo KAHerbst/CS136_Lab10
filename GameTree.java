@@ -7,44 +7,31 @@ public class GameTree{
     char color;
     HexBoard root;
     Vector<GameTree> children;
-
+    
     /**
      * Creates a "full" GameTree representing every possible state of our hex-a-pawn game
      **/
-    //white on top
-    GameTree(){
-	this.root = new HexBoard();
-	this.children = new Vector<GameTree>();
-	populate();
-    }
 
     GameTree(HexBoard hex, char color){
 	this.root = hex;
 	this.color = color;
+	this.parent = null;
 	this.children = new Vector<GameTree>();
 	populate();
-    }
-
-    public boolean move(int index){
-	return true;
-    }
-
-    public GameTree remove(){
-	return null;
     }
 
     public void populate(){
 	populateHelper(this,color);
     }
-    
+
     public void populateHelper(GameTree tree, char player){
 	HexBoard currentBoard = tree.root;
 	if(currentBoard.win('*') || currentBoard.win('o')) return;
 	Iterator<HexMove> moves = currentBoard.moves(player).iterator();
 	while(moves.hasNext()){
 	    HexBoard nextBoard = new HexBoard(currentBoard, moves.next());
-	    nextBoard.setParent(currentBoard);
 	    GameTree nextMove = new GameTree(nextBoard,player);
+	    nextMove.setParent(tree);
 	    tree.children.add(nextMove);
 	    populateHelper(nextMove,currentBoard.opponent(player));	    
 	}
@@ -53,12 +40,11 @@ public class GameTree{
     // post: sets a parent GameTree so you can go back up the tree (for pruning)
     public void setParent(GameTree parent){
 	this.parent = parent;
-    }	
+    }
 
     public String toString(){
 	return toStringHelper(this, ""+this.root.toString());
     }
-   
     public String toStringHelper(GameTree current, String str){
 	if(current.children.isEmpty()) return current.root.toString() + str;
 	Iterator<GameTree> childrenIter = current.children.iterator();
@@ -74,5 +60,4 @@ public class GameTree{
 	GameTree dysron = new GameTree(new HexBoard(),'*');
 	System.out.println(dysron);
     }
-    
 }
