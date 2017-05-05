@@ -24,21 +24,6 @@ public class GameTree{
 	populate();
     }
 
-    public boolean move(int index){
-	return true;
-    }
-
-    /**
-     * prunes the tree by removing a specified HexBoard leaf from the tree
-     * @pre: HexBoard leaf is a valid HexBoard in the tree
-     * @post: Returns an updated GameTree w/o the argument leaf
-     **/
-	//in the end I will set leaf.root to be null
-	//I could also modify the moves vector for a specified node
-    public GameTree remove(GameTree leaf){
-	return null;
-    }
-
     public void populate(){
 	populateHelper(this,color);
     }
