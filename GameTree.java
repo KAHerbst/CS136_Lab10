@@ -2,8 +2,9 @@ import structure5.*;
 import java.util.Iterator;
 
 public class GameTree{
-
-    int level;
+    
+    GameTree parent;
+    char color;
     HexBoard root;
     Vector<GameTree> children;
 
@@ -17,24 +18,15 @@ public class GameTree{
 	populate();
     }
 
-    GameTree(int rows, int cols){
-	this.root = new HexBoard(rows, cols);
+    GameTree(HexBoard hex, char color){
+	this.root = hex;
+	this.color = color;
 	this.children = new Vector<GameTree>();
 	populate();
     }
 
-    GameTree(HexBoard hex){
-	this.root = hex;
-	this.children = new Vector<GameTree>();
-    }
-
-    // not sure if what we'll use this for
-    public boolean validMove(){
+    public boolean move(int index){
 	return true;
-    }
-
-    public GameTree move(){
-	return null;
     }
 
     public GameTree remove(){
@@ -42,36 +34,44 @@ public class GameTree{
     }
 
     public void populate(){
-	populateHelper(this,'*');
+	populateHelper(this,color);
     }
     
     public void populateHelper(GameTree tree, char player){
 	HexBoard currentBoard = tree.root;
 	if(currentBoard.win('*') || currentBoard.win('o')) return;
-	Iterator<HexMove> moves = currentBoard.moves(currentBoard.opponent(player)).iterator();
+	Iterator<HexMove> moves = currentBoard.moves(player).iterator();
 	while(moves.hasNext()){
-	    GameTree nextMove = new GameTree(new HexBoard(currentBoard, moves.next()));
-	    this.children.add(nextMove);
+	    HexBoard nextBoard = new HexBoard(currentBoard, moves.next());
+	    nextBoard.setParent(currentBoard);
+	    GameTree nextMove = new GameTree(nextBoard,player);
+	    tree.children.add(nextMove);
 	    populateHelper(nextMove,currentBoard.opponent(player));	    
 	}
     }
 
+    // post: sets a parent GameTree so you can go back up the tree (for pruning)
+    public void setParent(GameTree parent){
+	this.parent = parent;
+    }	
+
     public String toString(){
-	return toStringHelper(this, "");
+	return toStringHelper(this, ""+this.root.toString());
     }
-    
+   
     public String toStringHelper(GameTree current, String str){
+	if(current.children.isEmpty()) return current.root.toString() + str;
 	Iterator<GameTree> childrenIter = current.children.iterator();
 	while(childrenIter.hasNext()){
 	    GameTree next = childrenIter.next();
-	    str = str + next.root.toString();
-	    toStringHelper(next,str);
+	    System.out.println(next.root);
+	    toStringHelper(next,str+next.root.toString());
 	}
 	return str;
     }
 
     public static void main(String[] argv){
-	GameTree dysron = new GameTree();
+	GameTree dysron = new GameTree(new HexBoard(),'*');
 	System.out.println(dysron);
     }
     
