@@ -1,1 +1,40 @@
 # CS136_Lab10
+/**
+* Lab 10 - Design Doc
+* Konnor Herbst
+* Wed 7-10
+* UNIX - kah3
+**/
+
+Classes: GameTree.java and sketch of computer player, random player and human player
+
+Q: the level will determine what "player"'s turn it is, but how do actually do all this? i.e. what is our main going to look like in the end?
+A: I am under the impression that it is exactly how the main in HexBoard is and it only works because in our GameTree modification (like w/ computer player) we are modifiying the moves and thus the children in the tree
+
+Q: I am using the notion of recursion here, but not in the constructor, how can I shift this logic (move is essentially recursion)
+
+Q: I might want to make a node class just to easily encapsulate a specific HexBoard and easily be able to point to children in GameeTree.java
+
+GameTree.java
+//The idea here is representing our hex-a-pawn game as a tree that stores our state as a specifically oriented HexBoard and moves between these boards via HexMove, this can only happen if the move we pass is valid though
+	-Import structure5.*
+	-Variables: root, vector of children (could be nodes if we choose that implementation)
+	-Methods:
+	//I do not think any of these will be static becuase they all operate on GameTree objects
+		# Constructor : root is the original position Hexboard and the children is the set of return values to our HexBoard(orig, HexMove m) where all of our moves are characterized at each "node" by orig.moves.
+		
+		# validMove (return boolean) : checks to see if the move we are trying to do in our tree is valid, that is it checks to see is move is included in our children nodes.
+		
+		# move (return GameTree) : (operates in tandem w/ validMove) and reassigns the root of our tree to be the HexBoard(orig, move) where orig is this and move is our speicifed and valid move
+		
+		# remove/prune (return GameTree) : searches the tree for specific leaf of the tree and removes it, returning a new GameTree object that is modified w/o that leaf
+
+Computer Player
+//the idea here is to play the game randomly until a specific move leads to a loss and then to prune/remove that move from the GameTree
+//could use a similar or even same notion that random will use, until we need to prune and then rinse and repeat
+
+Random Player
+//the idea here is to traverse a GameTree(a "full" original one is how we will implement it) "randomly"
+
+Human Player
+//the idea here is to take input on moves form the scanner and move through the tree (at that level) via this input
