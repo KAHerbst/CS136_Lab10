@@ -2,6 +2,7 @@ import structure5.*;
 import java.util.Iterator;
 
 public class GameTree{
+	
     GameTree parent;
     char color;
     HexBoard root;
@@ -13,6 +14,7 @@ public class GameTree{
     //white on top
     GameTree(){
 	this.root = new HexBoard();
+	this.parent = null;
 	this.children = new Vector<GameTree>();
 	populate();
     }
@@ -20,6 +22,7 @@ public class GameTree{
     GameTree(HexBoard hex, char color){
 	this.root = hex;
 	this.color = color;
+	this.parent = null;
 	this.children = new Vector<GameTree>();
 	populate();
     }
