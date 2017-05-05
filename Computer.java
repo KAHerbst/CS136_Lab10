@@ -16,16 +16,18 @@ public class Computer implements Player{
     // post: game is played from this node on; winning player is returned    
     public Player play(GameTree node, Player opponent){
 	
-	// if the last move resulted in a loss, prune the node 
-	// and return next player
-	if(node.board.win(opponent.color)){
+	// if the last move resulted in a loss or it leads to a dead end
+	// prune the node and return next player
+	if(node.board.win(opponent.color) ||
+	  (!node.board.win(color) && !node.board.win(opponent.color)
+		&& node.children.isEmpty())){
 	    node.parent.children.remove(node);
 	    return opponent;
 	}
 	
 	// if the computer won, return the computer as the winner
 	else if(node.board.win(this.color)) return this;
-	
+
 	else{
 	    //choose a random move from the node's children
 	    node = node.children.get(random.nextInt(node.children.size()));
