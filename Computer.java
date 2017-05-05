@@ -3,11 +3,9 @@ import java.util.Random;
 public class Computer implements Player{
     
     // the computer will pick random moves but remove losing moves
-    Random random;
-    char color;
+    Random random;  
     
-    public Computer(char color){
-	this.color = color;
+    public Computer(){
 	random = new Random();
     }
     
@@ -18,16 +16,16 @@ public class Computer implements Player{
 	
 	// if the last move resulted in a loss or it leads to a dead end
 	// prune the node and return next player
-	char opponentColor = node.root.opponent(color);
+	char opponentColor = node.root.opponent(node.color);
 	if(node.root.win(opponentColor) ||
-	   (!node.root.win(color) && !node.root.win(opponentColor)
+	   (!node.root.win(node.color) && !node.root.win(opponentColor)
 	    && node.children.isEmpty())){
 	    node.parent.children.remove(node);
 	    return opponent;
 	}
 	
 	// if the computer won, return the computer as the winner
-	else if(node.root.win(this.color)) return this;
+	else if(node.root.win(node.color)) return this;
 	
 	else{
 	    //choose a random move from the node's children
