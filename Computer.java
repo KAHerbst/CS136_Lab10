@@ -18,20 +18,21 @@ public class Computer implements Player{
 	
 	// if the last move resulted in a loss or it leads to a dead end
 	// prune the node and return next player
-	if(node.board.win(opponent.color) ||
-	  (!node.board.win(color) && !node.board.win(opponent.color)
-		&& node.children.isEmpty())){
+	char opponentColor = node.root.opponent(color);
+	if(node.root.win(opponentColor) ||
+	   (!node.root.win(color) && !node.root.win(opponentColor)
+	    && node.children.isEmpty())){
 	    node.parent.children.remove(node);
 	    return opponent;
 	}
 	
 	// if the computer won, return the computer as the winner
-	else if(node.board.win(this.color)) return this;
-
+	else if(node.root.win(this.color)) return this;
+	
 	else{
 	    //choose a random move from the node's children
-	    node = node.children.get(random.nextInt(node.children.size()));
-	    return null;
+	    GameTree nextMove = node.children.get(random.nextInt(node.children.size())); 
+	    return opponent.play(nextMove,this);
 	}
 	
     }

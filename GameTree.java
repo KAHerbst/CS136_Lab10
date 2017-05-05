@@ -2,22 +2,15 @@ import structure5.*;
 import java.util.Iterator;
 
 public class GameTree{
-	
+    
     GameTree parent;
     char color;
     HexBoard root;
     Vector<GameTree> children;
-
+    
     /**
      * Creates a "full" GameTree representing every possible state of our hex-a-pawn game
      **/
-    //white on top
-    GameTree(){
-	this.root = new HexBoard();
-	this.parent = null;
-	this.children = new Vector<GameTree>();
-	populate();
-    }
 
     GameTree(HexBoard hex, char color){
 	this.root = hex;
@@ -37,8 +30,8 @@ public class GameTree{
 	Iterator<HexMove> moves = currentBoard.moves(player).iterator();
 	while(moves.hasNext()){
 	    HexBoard nextBoard = new HexBoard(currentBoard, moves.next());
-	    nextBoard.setParent(currentBoard);
 	    GameTree nextMove = new GameTree(nextBoard,player);
+	    nextMove.setParent(tree);
 	    tree.children.add(nextMove);
 	    populateHelper(nextMove,currentBoard.opponent(player));	    
 	}

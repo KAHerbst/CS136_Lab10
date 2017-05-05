@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Human implements Player{
     
-    protected char color;
+    char color;
     protected Scanner scan;
 
     public Human(char color){
@@ -14,16 +14,17 @@ public class Human implements Player{
     // post: game is played from this node on; winning player is returned
     public Player play(GameTree node, Player opponent){
 	    //as long as nobody has won at that node
-	if(!node.board.win(opponent.color) || !node.board.win(this.color))
-	  {
-	      //this is a vector of HexMoves
-	      System.out.println(node.moves(this.color));
-	      System.out.println("Which move would you like to take");
-	      String input = scan.nextLine();
-	      GameTree nextTree = node.children.moves(this.color).get(input);
-	      return opponent.play(nextTree, this);
-	}
-	else if(node.board.win(opponent.color)){	    
+	char opponentColor = node.root.opponent(color);
+	if(!node.root.win(opponentColor) || !node.root.win(this.color))
+	    {
+		//this is a vector of HexMoves
+		System.out.println(node.root.moves(this.color));
+		System.out.println("Which move would you like to take");
+		int input = scan.nextInt();
+		GameTree nextTree = node.children.get(input-1);
+		return opponent.play(nextTree, this);
+	    }
+	else if(node.root.win(opponentColor)){	    
 	    return opponent;
 	}
 	return this;
