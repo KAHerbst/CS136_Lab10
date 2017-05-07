@@ -1,0 +1,24 @@
+/**
+* Konnor Herbst (kah3) and Dysron Marshall (dzm1)
+* Lab 10
+* Wed 7-10 PM
+**/
+
+1) 
+
+
+2) If you implement the learning machine, pit two machines against each
+other. Gardner called the computer to move first H.I.M., and the machine
+to move second H.E.R. Will H.I.M. or H.E.R. ultimately win more
+frequently? Explain your reasoning in a short write-up. What happens for
+larger boards?
+
+A: "Very little is known about the games larger than 3 × 3." (Bailey pg 314) based on our program and running analysis. Let's list the win tendency for the fllowing board sizes
+
+(2x2) -> H.E.R.
+(2x3) -> H.E.R.
+(3x2) -> H.I.M.
+(3x3) -> H.E.R.
+(3x4) -> H.E.R.
+(4x3) -> H.E.R.
+(4x4) -> H.E.R.

@@ -1,11 +1,11 @@
 import structure5.*;
 import java.util.Random;
-public class Computer implements Player{
+public class RandomPlayer implements Player{
     
     // the computer will pick random moves but remove losing moves
     Random random;  
     
-    public Computer(){
+    public RandomPlayer(){
 	random = new Random();
     }
     
@@ -18,7 +18,6 @@ public class Computer implements Player{
 	// prune the node and return next player
 	char opponentColor = node.root.opponent(node.color);
 	if(node.root.win(opponentColor)){
-	    node.parent.children.remove(node);
 	    return opponent;
 	}
 	
@@ -26,13 +25,12 @@ public class Computer implements Player{
 	else if(node.root.win(node.color)) return this;
 	
 	else{
+	    //choose a random move from the node's children
 	    if(node.children.isEmpty()){
 		return opponent;
 	    }	 
-	    //choose a random move from the node's children
-	    GameTree nextMove = node.children.get(random.nextInt(node.children.size())); 
-	    return opponent.play(nextMove,this);
+		GameTree nextMove = node.children.get(random.nextInt(node.children.size())); 
+		return opponent.play(nextMove,this);
 	}
-	
     }
 }

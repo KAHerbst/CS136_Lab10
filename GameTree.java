@@ -2,57 +2,41 @@ import structure5.*;
 import java.util.Iterator;
 
 public class GameTree{
+    
     GameTree parent;
     char color;
+    static int boardCount = 1;
     HexBoard root;
     Vector<GameTree> children;
-
+    
     /**
      * Creates a "full" GameTree representing every possible state of our hex-a-pawn game
      **/
-    //white on top
-    GameTree(){
-	this.root = new HexBoard();
-	this.children = new Vector<GameTree>();
-	populate();
-    }
-
     GameTree(HexBoard hex, char color){
 	this.root = hex;
 	this.color = color;
 	this.children = new Vector<GameTree>();
-	populate();
     }
 
-    public boolean move(int index){
-	return true;
-    }
-
-    /**
-     * prunes the tree by removing a specified HexBoard leaf from the tree
-     * @pre: HexBoard leaf is a valid HexBoard in the tree
-     * @post: Returns an updated GameTree w/o the argument leaf
-     **/
-	//in the end I will set leaf.root to be null
-	//I could also modify the moves vector for a specified node
-    public GameTree remove(GameTree leaf){
-	return null;
-    }
-
+    // post: constructs the entire GameTree
     public void populate(){
 	populateHelper(this,color);
     }
-
-    public void populateHelper(GameTree tree, char player){
+    
+    protected void populateHelper(GameTree tree, char player){
 	HexBoard currentBoard = tree.root;
 	if(currentBoard.win('*') || currentBoard.win('o')) return;
 	Iterator<HexMove> moves = currentBoard.moves(player).iterator();
+
+	GameTree.boardCount += currentBoard.moves(player).size();
+	   
 	while(moves.hasNext()){
-	    HexBoard nextBoard = new HexBoard(currentBoard, moves.next());
-	    nextBoard.setParent(currentBoard);
-	    GameTree nextMove = new GameTree(nextBoard,player);
+	     HexBoard nextBoard = new HexBoard(currentBoard, moves.next());
+	    char opponentColor = nextBoard.opponent(player);
+	    GameTree nextMove = new GameTree(nextBoard,opponentColor);
+	    nextMove.setParent(tree);
 	    tree.children.add(nextMove);
-	    populateHelper(nextMove,currentBoard.opponent(player));	    
+	    populateHelper(nextMove,opponentColor);	    
 	}
     }
 
@@ -61,10 +45,11 @@ public class GameTree{
 	this.parent = parent;
     }
 
+    /**
     public String toString(){
 	return toStringHelper(this, ""+this.root.toString());
     }
-    public String toStringHelper(GameTree current, String str){
+    protected String toStringHelper(GameTree current, String str){
 	if(current.children.isEmpty()) return current.root.toString() + str;
 	Iterator<GameTree> childrenIter = current.children.iterator();
 	while(childrenIter.hasNext()){
@@ -74,9 +59,6 @@ public class GameTree{
 	}
 	return str;
     }
-
-    public static void main(String[] argv){
-	GameTree dysron = new GameTree(new HexBoard(),'*');
-	System.out.println(dysron);
-    }
+    **/
+   
 }
