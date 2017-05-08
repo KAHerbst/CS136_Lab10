@@ -4,7 +4,10 @@
 * Wed 7-10 PM
 **/
 
-1) 
+1) we are getting the following counts: 
+(3x3) -> 244 
+(3x4) -> 5899
+(3x5) -> 213726
 
 
 2) If you implement the learning machine, pit two machines against each
@@ -15,10 +18,11 @@ larger boards?
 
 A: "Very little is known about the games larger than 3 × 3." (Bailey pg 314) based on our program and running analysis. Let's list the win tendency for the fllowing board sizes
 
-(2x2) -> H.E.R.
-(2x3) -> H.E.R.
-(3x2) -> H.I.M.
 (3x3) -> H.E.R.
 (3x4) -> H.E.R.
 (4x3) -> H.E.R.
 (4x4) -> H.E.R.
+(3x5) -> H.E.R.
+(5x3) -> H.E.R.
+
+based on this we can not see any discernable pattern to the winning tendency for larger boards. It seems like H.E.R. wins all the time

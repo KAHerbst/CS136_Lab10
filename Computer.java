@@ -14,11 +14,11 @@ public class Computer implements Player{
     // post: game is played from this node on; winning player is returned    
     public Player play(GameTree node, Player opponent){
 	
-	// if the last move resulted in a loss or it leads to a dead end
-	// prune the node and return next player
+	// if the last move resulted in a loss, remove the move move before it
 	char opponentColor = node.root.opponent(node.color);
 	if(node.root.win(opponentColor)){
-	    node.parent.children.remove(node);
+	    GameTree lastMove = node.parent.parent;
+	    lastMove.parent.children.remove(lastMove);
 	    return opponent;
 	}
 	
@@ -26,9 +26,11 @@ public class Computer implements Player{
 	else if(node.root.win(node.color)) return this;
 	
 	else{
+	    // if there are no more moves, the opponent wins
 	    if(node.children.isEmpty()){
 		return opponent;
-	    }	 
+	    }
+	 
 	    //choose a random move from the node's children
 	    GameTree nextMove = node.children.get(random.nextInt(node.children.size())); 
 	    return opponent.play(nextMove,this);
