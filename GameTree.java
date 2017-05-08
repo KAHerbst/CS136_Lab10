@@ -44,27 +44,5 @@ public class GameTree{
     public void setParent(GameTree parent){
 	this.parent = parent;
     }
-
-    /** 
-
-     // created to see all the GameTrees
- 
-    public String toString(){
-	return toStringHelper(this, ""+this.root.toString());
-    }
-    protected String toStringHelper(GameTree current, String str){
-	if(current.children.isEmpty()) return current.root.toString() + str;
-	Iterator<GameTree> childrenIter = current.children.iterator();
-	while(childrenIter.hasNext()){
-	    GameTree next = childrenIter.next();
-	    System.out.println(next.root);
-	    toStringHelper(next,str+next.root.toString());
-	}
-	return str;
-    }
-    **/
-
-    public String toString(){
-	return root.toString();
-    }
+   
 }
