@@ -44,5 +44,8 @@ public class GameTree{
     public void setParent(GameTree parent){
 	this.parent = parent;
     }
+    
+    // print the board held in the GameTree
+    public String toString(){ return root.toString(); }
    
 }
