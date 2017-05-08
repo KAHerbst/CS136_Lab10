@@ -45,7 +45,10 @@ public class GameTree{
 	this.parent = parent;
     }
 
-    /**
+    /** 
+
+     // created to see all the GameTrees
+ 
     public String toString(){
 	return toStringHelper(this, ""+this.root.toString());
     }
@@ -60,5 +63,8 @@ public class GameTree{
 	return str;
     }
     **/
-   
+
+    public String toString(){
+	return root.toString();
+    }
 }

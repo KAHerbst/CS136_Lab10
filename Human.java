@@ -17,7 +17,7 @@ public class Human implements Player{
 	if(node.root.win(node.color)) return this;
 	else if(node.root.win(opponentColor)) return opponent;
 	else{
-	    System.out.println(node.root);
+	    System.out.println(node);
 	    Vector<HexMove> moves = node.root.moves(node.color);	    
 	    for(int i = 1; i <= moves.size(); i++){
 		System.out.println("Move "+ i+ ": " + moves.get(i-1));

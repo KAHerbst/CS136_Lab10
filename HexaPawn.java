@@ -26,24 +26,23 @@ public class HexaPawn{
 	    Player winner = player1.play(game, player2);
 	    if(winner == player1){
 		player1wins +=1;
-		System.out.println("Player 1 has won!");
+		System.out.println("\nPlayer 1 has won!\n");
 	    }
 	    else{ 
 		player2wins+=1;
-		System.out.println("Player 2 has won!"); 
+		System.out.println("\nPlayer 2 has won!\n"); 
 	    }	
 	    round+=1;
 
 	    //this is to stop the game after a specific difference of wins between players	    
-	    System.out.println(board);	    
-	    System.out.println("Round: " + round+ "\nPlayer 1: " + player1wins +
-			       "     |     Player 2: " + player2wins);	   
 	    if(Math.abs(player1wins - player2wins) > difference){
 		System.out.println("Okay ENOUGH IS ENOUGH");		
 		break;
 	    }
-	}
 
+	    System.out.println("Round: " + round+ "\nPlayer 1: " + player1wins +
+			       "     |     Player 2: " + player2wins);	   
+	}
 	System.out.println("This board was created with: " + game.boardCount+ " nodes.");
     }
 }
